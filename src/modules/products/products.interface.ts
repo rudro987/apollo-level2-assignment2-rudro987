@@ -1,0 +1,21 @@
+//sub type for variants
+export type TVariants = {
+  type: string
+  value: string
+}
+
+//sub type for inventory
+export type TInventory = {
+  quantity: number
+  inStock: boolean
+}
+
+export type TProducts = {
+  name: string
+  description: string
+  price: number
+  category: string
+  tags: [string]
+  variants: [TVariants]
+  inventory: TInventory
+}
