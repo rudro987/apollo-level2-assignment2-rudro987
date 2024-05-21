@@ -53,8 +53,55 @@ const getSingleProduct = async (req: Request, res: Response) => {
   }
 }
 
+const updateSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    console.log(req.body);
+    
+    const result = await ProductsService.updateSingleProductInDB(productId, req.body)
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Product updating failed',
+      error: error,
+    })
+  }
+}
+
+const deleteSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductsService.deleteSingleProductFromDB(productId);
+    if(!result){
+        return res.status(404).json({
+            success: false,
+            message: 'Product not found',
+            data: null,
+          })
+    };
+    res.status(200).json({
+      success: true,
+      message: 'Product deleted successfully!',
+      data: null,
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Product deleting failed',
+      error: error,
+    })
+  }
+}
+
 export const ProductsController = {
   createProduct,
   getAllProducts,
-  getSingleProduct
+  getSingleProduct,
+  updateSingleProduct,
+  deleteSingleProduct
 }
