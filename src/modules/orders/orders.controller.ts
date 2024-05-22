@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { OrdersService } from './orders.service'
 import orderValidationsSchema from './orders.validation'
+import { ZodError } from 'zod'
 
 const createNewOrder = async (req: Request, res: Response) => {
   try {
@@ -12,7 +13,12 @@ const createNewOrder = async (req: Request, res: Response) => {
       data: result,
     })
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof ZodError) {
+      res.status(400).json({
+        success: false,
+        message: error.errors[0].message,
+      })
+    } else if (error instanceof Error) {
       res.status(400).json({
         success: false,
         message: error.message,
