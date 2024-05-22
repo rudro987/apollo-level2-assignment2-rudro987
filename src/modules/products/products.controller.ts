@@ -20,20 +20,22 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const { searchTerm } = req.query;
-    const result = await ProductsService.getAllProductsFromDB(searchTerm as string)
-    if(searchTerm){
-        res.status(200).json({
-            success: true,
-            message: `Products matching search term ${searchTerm} fetched`,
-            data: result,
-          })
-    }
-    res.status(200).json({
+    const { searchTerm } = req.query
+    const result = await ProductsService.getAllProductsFromDB(
+      searchTerm as string,
+    )
+    if (searchTerm) {
+      return res.status(200).json({
         success: true,
-        message: "Products fetched successfully!",
+        message: `Products matching search term ${searchTerm} fetched`,
         data: result,
       })
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    })
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -45,7 +47,7 @@ const getAllProducts = async (req: Request, res: Response) => {
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
-    const { productId } = req.params;
+    const { productId } = req.params
     const result = await ProductsService.getSingleProductFromDB(productId)
     res.status(200).json({
       success: true,
@@ -63,10 +65,13 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
 const updateSingleProduct = async (req: Request, res: Response) => {
   try {
-    const { productId } = req.params;
-    console.log(req.body);
-    
-    const result = await ProductsService.updateSingleProductInDB(productId, req.body)
+    const { productId } = req.params
+    console.log(req.body)
+
+    const result = await ProductsService.updateSingleProductInDB(
+      productId,
+      req.body,
+    )
     res.status(200).json({
       success: true,
       message: 'Product updated successfully!',
@@ -83,15 +88,15 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 
 const deleteSingleProduct = async (req: Request, res: Response) => {
   try {
-    const { productId } = req.params;
-    const result = await ProductsService.deleteSingleProductFromDB(productId);
-    if(!result){
-        return res.status(404).json({
-            success: false,
-            message: 'Product not found',
-            data: null,
-          })
-    };
+    const { productId } = req.params
+    const result = await ProductsService.deleteSingleProductFromDB(productId)
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+        data: null,
+      })
+    }
     res.status(200).json({
       success: true,
       message: 'Product deleted successfully!',
@@ -111,5 +116,5 @@ export const ProductsController = {
   getAllProducts,
   getSingleProduct,
   updateSingleProduct,
-  deleteSingleProduct
+  deleteSingleProduct,
 }
