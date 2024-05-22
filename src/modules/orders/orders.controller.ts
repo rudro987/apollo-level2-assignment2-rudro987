@@ -10,11 +10,18 @@ const createNewOrder = async (req: Request, res: Response) => {
       data: result,
     })
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Order creation failed!',
-      error: error,
-    })
+    if (error instanceof Error) {
+      res.status(400).json({ 
+          success: false, 
+          message: error.message 
+        });
+    } else {
+      res.status(500).json({ 
+        success: false, 
+        message: 'Order creation failed', 
+        error 
+      });
+    }
   }
 }
 
