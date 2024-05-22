@@ -1,7 +1,7 @@
 //sub type for variants
 export type TVariants = {
-  type: string
-  value: string
+  type?: string
+  value?: string
 }
 
 //sub type for inventory
@@ -15,7 +15,7 @@ export type TProducts = {
   description: string
   price: number
   category: string
-  tags: [string]
-  variants: [TVariants]
+  tags?: string[]
+  variants?: TVariants[]
   inventory: TInventory
 }
