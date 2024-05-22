@@ -1,25 +1,26 @@
 import { z } from "zod";
 
+// sub-schema for variants
 const variantsValidationsSchema = z.object({
-    type: z.string().optional(), // 'type' field is optional
-    value: z.string().optional(), // 'value' field is optional
+    type: z.string().optional(), 
+    value: z.string().optional(), 
   });
   
-  // Define the sub-schema for inventory
+  // sub-schema for inventory
   const inventoryValidationsSchema = z.object({
-    quantity: z.number().int().min(0), // 'quantity' should be an integer and non-negative
-    inStock: z.boolean().default(true), // 'inStock' is a boolean
+    quantity: z.number().int().min(0), 
+    inStock: z.boolean().default(true), 
   });
   
-  // Define the main schema for products
+  // Main schema for products
   const productsValidationsSchema = z.object({
-    name: z.string().min(1, { message: 'Product name is required' }), // 'name' is a non-empty string
-    description: z.string().min(1, { message: 'Product Description is required' }), // 'description' is a non-empty string
-    price: z.number().positive('Price must be a positive number').min(1, { message: 'Price is required' }), // 'price' is a positive number
-    category: z.string().min(1, { message: 'Product category is required' }), // 'category' is a non-empty string
-    tags: z.array(z.string()).optional(), // 'tags' is an optional array of strings
-    variants: z.array(variantsValidationsSchema).optional(), // 'variants' is an optional array of variant objects
-    inventory: inventoryValidationsSchema, // 'inventory' is an object following the InventorySchema
+    name: z.string().min(1, { message: 'Product name is required' }), 
+    description: z.string().min(1, { message: 'Product Description is required' }), 
+    price: z.number().positive('Price must be a positive number').min(1, { message: 'Price is required' }), 
+    category: z.string().min(1, { message: 'Product category is required' }), 
+    tags: z.array(z.string()).optional(), 
+    variants: z.array(variantsValidationsSchema).optional(), 
+    inventory: inventoryValidationsSchema, 
   });
 
   export default productsValidationsSchema;
