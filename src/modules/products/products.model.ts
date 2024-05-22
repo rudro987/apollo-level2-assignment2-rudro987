@@ -48,13 +48,13 @@ const ProductsSchema = new Schema<TProducts>({
     type: [String],
     required: false,
   },
-  variants: { 
+  variants: {
     type: [VariantsSchema],
   },
-  inventory: { 
-    type: InventorySchema, 
-    required: true 
-  }
+  inventory: {
+    type: InventorySchema,
+    required: true,
+  },
 })
 
 export const Products = model<TProducts>('Product', ProductsSchema)

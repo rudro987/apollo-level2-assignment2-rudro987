@@ -7,8 +7,8 @@ const createNewOrderInDB = async (orderData: TOrders) => {
 }
 
 const getAllOrdersFromDB = async (email: string) => {
-  let query = { }
-  if(email){
+  let query = {}
+  if (email) {
     query = { email: { $regex: email, $options: 'i' } }
   }
   const result = await Orders.find(query)

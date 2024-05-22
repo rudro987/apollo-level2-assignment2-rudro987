@@ -13,30 +13,30 @@ const createNewOrder = async (req: Request, res: Response) => {
     })
   } catch (error) {
     if (error instanceof Error) {
-      res.status(400).json({ 
-          success: false, 
-          message: error.message 
-        });
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      })
     } else {
-      res.status(500).json({ 
-        success: false, 
-        message: 'Order creation failed', 
-        error 
-      });
+      res.status(500).json({
+        success: false,
+        message: 'Order creation failed',
+        error,
+      })
     }
   }
 }
 
 const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const { email } = req.query;
+    const { email } = req.query
     const result = await OrdersService.getAllOrdersFromDB(email as string)
-    if(email){
-        return res.status(200).json({
-            success: true,
-            "message": "Orders fetched successfully for user email!",
-            data: result,
-        })
+    if (email) {
+      return res.status(200).json({
+        success: true,
+        message: 'Orders fetched successfully for user email!',
+        data: result,
+      })
     }
     return res.status(200).json({
       success: true,

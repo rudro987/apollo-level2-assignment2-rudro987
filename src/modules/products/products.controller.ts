@@ -68,8 +68,6 @@ const getSingleProduct = async (req: Request, res: Response) => {
 const updateSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params
-    console.log(req.body)
-
     const result = await ProductsService.updateSingleProductInDB(
       productId,
       req.body,
